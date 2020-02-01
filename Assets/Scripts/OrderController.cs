@@ -5,7 +5,7 @@ using UnityEngine;
 public class OrderController : MonoBehaviour
 {
     [SerializeField]
-    List<GameObject> orders;
+    protected List<GameObject> orders;
     [SerializeField]
     GameObject orderPrefab;
     [SerializeField]
@@ -13,12 +13,12 @@ public class OrderController : MonoBehaviour
     [SerializeField]
     float orderSpeed = 3.5f;
 
-    bool isMake;
+    protected bool isMake;
     [SerializeField]
     int maxFill = 100;
     public int minFill = 90;
 
-    void Start()
+    virtual protected void Start()
     {
         orders = new List<GameObject>(); // Store current orders
         isMake = false;
@@ -56,6 +56,14 @@ public class OrderController : MonoBehaviour
         Debug.Log("OrderController: orders " + orders.Count);
     }
 
+    protected void CreateOrder(OrderType type)
+    {
+        GameObject order = Instantiate(orderPrefab, initialPos.transform.position, Quaternion.identity);
+        order.GetComponent<Order>().Initailize(type, orderSpeed);
+        orders.Add(order);
+        Debug.Log("OrderController: orders " + orders.Count);
+    }
+
     void AssessOrder()
     {
         if(orders[0].GetComponent<Order>().state == CreamType.Filled)
@@ -69,7 +77,7 @@ public class OrderController : MonoBehaviour
         }
     }
 
-    public void StartMake()
+    virtual public void StartMake()
     {
         if (!orders[orders.Count - 1].GetComponent<Order>().IsReadyMake)
         {
@@ -78,7 +86,7 @@ public class OrderController : MonoBehaviour
         }
     }
 
-    public void StopMake()
+    virtual public void StopMake()
     {
         isMake = false;
         if(orders.Count < 1)
