@@ -1,0 +1,71 @@
+{
+    "name": "MpInputTest",
+    "maps": [
+        {
+            "name": "Cube",
+            "id": "24a3de6c-c9fb-4df5-a288-9ba5f5005510",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "c91c6106-c054-4ec7-ac03-c783ce3faef6",
+                    "expectedControlType": "Stick",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MoveUp",
+                    "type": "Button",
+                    "id": "9bcf27f2-c168-4b4b-b66c-8512000b6c73",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MoveDown",
+                    "type": "Button",
+                    "id": "2c935820-f5e6-4ad8-b15d-5e569b489573",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "87273bab-89c9-4b34-a0aa-c7c3e3da4380",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fda15e7e-4949-4556-9f58-727f78609a38",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3d387fc-4161-4e4a-81a3-153f2918ec6e",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
