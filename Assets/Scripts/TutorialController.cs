@@ -61,7 +61,7 @@ public class TutorialController : OrderController
             if (orders[orders.Count - 1].GetComponent<Order>().type == OrderType.White)
             {
                 // create second tutorial order
-                // CreateOrder(OrderType.Black);
+                CreateOrder(OrderType.Black);
             }
             else {
                 // finish tutorial, load next scene when tested true
