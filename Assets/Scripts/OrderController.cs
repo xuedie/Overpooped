@@ -15,7 +15,7 @@ public class OrderController : MonoBehaviour
 
     protected bool isMake;
     [SerializeField]
-    int maxFill = 100;
+    public int maxFill = 100;
     public int minFill = 90;
 
     virtual protected void Start()
@@ -79,7 +79,7 @@ public class OrderController : MonoBehaviour
 
     virtual public void StartMake()
     {
-        if (!orders[orders.Count - 1].GetComponent<Order>().IsReadyMake)
+        if (orders[orders.Count - 1].GetComponent<Order>().IsReadyMake)
         {
             isMake = true;
             Debug.Log("OrderController: Cream starts making.");
@@ -102,6 +102,7 @@ public class OrderController : MonoBehaviour
             else if (orderValue <= minFill)
                 orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Unfilled;
             else
+                orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Overfilled;
                 orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Overfilled;
             Debug.Log("OrderController: Cream type " + orders[orders.Count - 1].GetComponent<Order>().state);
             // Continue moving
