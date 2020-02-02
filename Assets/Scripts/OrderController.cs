@@ -84,6 +84,18 @@ public class OrderController : MonoBehaviour
             if (isMakeWhite)
             {
                 orders[0].GetComponent<Order>().values[0] += valueSpeed * Time.deltaTime;
+                if(orders[0].GetComponent<Order>().type == OrderType.Double)
+                {
+                    Color tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                    tmp.a = orders[0].GetComponent<Order>().values[0] / 100f;
+                    orders[0].GetComponent<Order>().tops[2].GetComponent<SpriteRenderer>().color = tmp;
+                }
+                else
+                {
+                    Color tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                    tmp.a = orders[0].GetComponent<Order>().values[0] / 100f;
+                    orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color = tmp;
+                }
             }
         }
         else if(!Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.M))
@@ -91,6 +103,18 @@ public class OrderController : MonoBehaviour
             if (isMakeBlack)
             {
                 orders[0].GetComponent<Order>().values[1] += valueSpeed * Time.deltaTime;
+                if (orders[0].GetComponent<Order>().type == OrderType.Double)
+                {
+                    Color tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                    tmp.a = orders[0].GetComponent<Order>().values[1] / 100f;
+                    orders[0].GetComponent<Order>().tops[3].GetComponent<SpriteRenderer>().color = tmp;
+                }
+                else
+                {
+                    Color tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                    tmp.a = orders[0].GetComponent<Order>().values[1] / 100f;
+                    orders[0].GetComponent<Order>().tops[1].GetComponent<SpriteRenderer>().color = tmp;
+                }
             }
         }
         else if (Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.M))
@@ -99,6 +123,24 @@ public class OrderController : MonoBehaviour
             {
                 orders[0].GetComponent<Order>().values[1] += valueSpeed * Time.deltaTime;
                 orders[0].GetComponent<Order>().values[1] += valueSpeed * Time.deltaTime;
+                if (orders[0].GetComponent<Order>().type == OrderType.Double)
+                {
+                    Color tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                    tmp.a = orders[0].GetComponent<Order>().values[0] / 100f;
+                    orders[0].GetComponent<Order>().tops[2].GetComponent<SpriteRenderer>().color = tmp;
+                    tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                    tmp.a = orders[0].GetComponent<Order>().values[1] / 100f;
+                    orders[0].GetComponent<Order>().tops[3].GetComponent<SpriteRenderer>().color = tmp;
+                }
+                else
+                {
+                    Color tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                    tmp.a = orders[0].GetComponent<Order>().values[0] / 100f;
+                    orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color = tmp;
+                    tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                    tmp.a = orders[0].GetComponent<Order>().values[1] / 100f;
+                    orders[0].GetComponent<Order>().tops[1].GetComponent<SpriteRenderer>().color = tmp;
+                }
             }
         }
         // Update the values of two sliders

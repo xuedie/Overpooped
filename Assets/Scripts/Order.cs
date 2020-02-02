@@ -23,6 +23,7 @@ public class Order : MonoBehaviour
     public CreamType state;
     public float speed;
     public float[] values = {0f, 0f};
+    public GameObject[] tops;
 
     float delaytime = 5f;
     bool isMove = false;
