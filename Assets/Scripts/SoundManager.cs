@@ -94,4 +94,16 @@ public class SoundManager : MonoBehaviour
             orderSource.Play();
         }
     }
+
+    public string SFXinPlay()
+	{
+		foreach (KeyValuePair<string, AudioClip> pair in sfxDict)
+		{
+            if (sfxSource.clip == pair.Value)
+			{
+				return pair.Key;
+			}
+		}
+		return "";
+	}
 }

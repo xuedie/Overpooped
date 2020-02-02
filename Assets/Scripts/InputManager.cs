@@ -21,6 +21,8 @@ public class InputManager : MonoBehaviour
     public bool isblack = false;
     public bool isdouble = false;
 
+	public float pressTh = 0.01f;
+
     string pressedText="Pad";
 
 
@@ -83,7 +85,10 @@ public class InputManager : MonoBehaviour
         Vector2 moveDir2 = new Vector2(h2 - ph2, v2 - pv2);
         d2 = moveDir2.magnitude;
 
-        
+		ph1 = h1;
+		ph2 = h2;
+		pv1 = v1;
+		pv2 = v2;
 
         if(Input.GetButtonDown("A1"))
         {
@@ -95,7 +100,7 @@ public class InputManager : MonoBehaviour
         }
 
 
-        if(Mathf.Abs(h2)>0.01||Mathf.Abs(v2)>0.01)
+        if(d2>pressTh)
         {
             WhiteBearPooping();
         }
@@ -104,7 +109,7 @@ public class InputManager : MonoBehaviour
             WhiteStopPooping();
         }
 
-        if (Mathf.Abs(h1) > 0.01 || Mathf.Abs(v1) > 0.01)
+        if (d1>pressTh)
         {
             BrownBearPooping();
         }
@@ -113,7 +118,20 @@ public class InputManager : MonoBehaviour
             BrownStopPooping();
         }
 
-
+        //下面的if还需要加蛋筒ready to be filled的validation
+        if (d1 > pressTh && Input.GetButtonDown("LeftBumper2") || d2 > pressTh && Input.GetButtonDown("LeftBumper1")))
+		{
+			if (!SoundManager.instance.sfxSource.isPlaying)
+			{
+				SoundManager.instance.PlaySFX("icecreamSquirt");
+			}
+		} else
+		{
+            if (SoundManager.instance.SFXinPlay == "icecreamSquirt" && SoundManager.instance.sfxSource.isPlaying)
+			{
+				SoundManager.instance.sfxSource.Pause();
+			}
+		}
 
     }
 
@@ -181,8 +199,7 @@ public class InputManager : MonoBehaviour
     }
 
 
-
-    public void WhiteBearPooping()
+	public void WhiteBearPooping()
     {
         whitebearAnim.SetBool("IsWhitePoop", true);
     }
