@@ -4,11 +4,13 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
-    public AudioSource sfxSource;
     public AudioSource bearSource;
+    public AudioSource sfxSource;
+    public AudioSource orderSource;
 
     public AudioClip[] bearSounds;
     public AudioClip[] sfxSounds;
+    public AudioClip[] orderSounds;
     public Dictionary<string, AudioClip> sfxDict = new Dictionary<string, AudioClip>();
 
     void Start()
@@ -33,6 +35,33 @@ public class SoundManager : MonoBehaviour
     }
     void Update()
     {
+        //test
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SoundManager.instance.PlayBearSound();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SoundManager.instance.PlaySFX("orderRight");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SoundManager.instance.PlaySFX("orderWrong");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SoundManager.instance.PlaySFX("conveyorBelt");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SoundManager.instance.PlaySFX("icecreamSquirt");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            SoundManager.instance.PlaySFX("icecreamDrop");
+        }
+
 
     }
     public void PlayBearSound()
@@ -51,6 +80,18 @@ public class SoundManager : MonoBehaviour
         } else
         {
             Debug.Log("clip "+ name + " does not exist");
+        }
+    }
+    public void PlayOrderSound(bool success) 
+    {
+        if (success)
+        {
+            orderSource.clip = sfxDict["orderRight"];
+            orderSource.Play();
+        } else
+        {
+            orderSource.clip = sfxDict["orderWrong"];
+            orderSource.Play();
         }
     }
 }
