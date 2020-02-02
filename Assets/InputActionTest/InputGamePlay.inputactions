@@ -1,0 +1,44 @@
+{
+    "name": "InputGamePlay",
+    "maps": [
+        {
+            "name": "ControllerInput",
+            "id": "b9a03f22-51a0-46b9-85eb-2777d8ccf244",
+            "actions": [
+                {
+                    "name": "Bear",
+                    "type": "Button",
+                    "id": "a16765ef-9a81-4ad3-8a74-8214f5d99058",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "df1a0956-cdfa-4876-a71c-9b5ce99cadf8",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Bear",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8332e743-d269-45a9-b78f-d2b45b9edf6c",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Bear",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

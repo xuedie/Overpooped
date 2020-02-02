@@ -5,7 +5,7 @@ using UnityEngine;
 public class OrderController : MonoBehaviour
 {
     [SerializeField]
-    List<GameObject> orders;
+    protected List<GameObject> orders;
     [SerializeField]
     GameObject orderPrefab;
     [SerializeField]
@@ -17,8 +17,8 @@ public class OrderController : MonoBehaviour
     [SerializeField]
     SliderController sliderController;
 
-    bool isMakeWhite;
-    bool isMakeBlack;
+    protected bool isMakeWhite;
+    protected bool isMakeBlack;
     [SerializeField]
     float maxFill = 100f;
     public float minFill = 90f;
@@ -32,7 +32,7 @@ public class OrderController : MonoBehaviour
         instance = this;
     }
 
-    void Start()
+    virtual protected void Start()
     {
         orders = new List<GameObject>(); // Store current orders
         isMakeWhite = isMakeBlack = false;
@@ -105,6 +105,15 @@ public class OrderController : MonoBehaviour
         Debug.Log("OrderController: orders " + orders.Count);
     }
 
+
+    protected void CreateOrder(OrderType type)
+    {
+        GameObject order = Instantiate(orderPrefab, initialPos.transform.position, Quaternion.identity);
+        order.GetComponent<Order>().Initailize(type, orderSpeed);
+        orders.Add(order);
+        Debug.Log("OrderController: orders " + orders.Count);
+    }
+
     public void AssessOrder()
     {
         Debug.Log("OrderController: assess orders " + orders.Count);
@@ -121,7 +130,7 @@ public class OrderController : MonoBehaviour
         assessedOrder.GetComponent<Order>().DestroyOrder();
     }
 
-    public void StartMakeWhite()
+    virtual public void StartMakeWhite()
     {
         if (orders[orders.Count - 1].GetComponent<Order>().IsReadyMake)
         {
@@ -130,7 +139,7 @@ public class OrderController : MonoBehaviour
         }
     }
 
-    public void StartMakeBlack()
+    virtual public void StartMakeBlack()
     {
         if (orders[orders.Count - 1].GetComponent<Order>().IsReadyMake)
         {
@@ -139,7 +148,7 @@ public class OrderController : MonoBehaviour
         }
     }
 
-    public void StopMake()
+    virtual public void StopMake()
     {
         if (isMakeWhite || isMakeBlack)
         {
