@@ -25,11 +25,16 @@ public class OrderController : MonoBehaviour
     float[] tmpValues = { 0, 0 };
 
     public static OrderController instance;
-    OrderController() { }
+    protected OrderController() { }
 
     void Awake()
     {
-        instance = this;
+        if (instance == null) {
+            instance = this;
+        } 
+        else {
+            Destroy(this.gameObject);
+        }
     }
 
     virtual protected void Start()
@@ -40,7 +45,7 @@ public class OrderController : MonoBehaviour
         CreateOrder();
     }
 
-    void Update()    
+    virtual protected void Update()    
     {
         // Call when player pressing the button
         if (Input.GetKeyDown(KeyCode.A))
@@ -106,7 +111,7 @@ public class OrderController : MonoBehaviour
         Debug.Log("OrderController: orders " + orders.Count);
     }
 
-    public void AssessOrder()
+    virtual public void AssessOrder()
     {
         Debug.Log("OrderController: assess orders " + orders.Count);
         if(orders[0].GetComponent<Order>().state == CreamType.Filled)
@@ -152,53 +157,55 @@ public class OrderController : MonoBehaviour
             else
             {
                 // Determine the cream type for assessment
-                float[] values = orders[orders.Count - 1].GetComponent<Order>().values;
-                if (orders[orders.Count - 1].GetComponent<Order>().type == OrderType.White)
+                Order order = orders[orders.Count - 1].GetComponent<Order>();
+                float[] values = order.values;
+                if (order.type == OrderType.White)
                 {
                     if (values[1] == 0f)
                     {
-                        if (values[0] > minFill && values[0] <= maxFill)
-                            orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Filled;
-                        else if (values[0] <= minFill)
-                            orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Unfilled;
-                        else
-                            orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Overfilled;
+                        order.state = CheckCreamType(values[0]);
                     }
                     else
-                        orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Wrong;
+                        order.state = CreamType.Wrong;
                 }
-                else if (orders[orders.Count - 1].GetComponent<Order>().type == OrderType.Black)
+                else if (order.type == OrderType.Black)
                 {
                     if (values[0] == 0f)
                     {
-                        if (values[1] > minFill && values[1] <= maxFill)
-                            orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Filled;
-                        else if (values[1] <= minFill)
-                            orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Unfilled;
-                        else
-                            orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Overfilled;
+                        order.state = CheckCreamType(values[1]);
                     }
                     else
-                        orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Wrong;
+                        order.state = CreamType.Wrong;
                 }
-                else
-                {
-                    if (values[0] > minFill && values[0] <= maxFill && values[1] > minFill && values[1] <= maxFill)
-                        orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Filled;
-                    else if (values[0] <= minFill && values[1] <= minFill)
-                        orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Unfilled;
-                    else if (values[0] >= minFill && values[1] >= minFill)
-                        orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Overfilled;
+                else {
+                    if (CheckCreamType(values[0]) == CreamType.Filled && 
+                        CheckCreamType(values[1]) == CreamType.Filled)
+                        order.state = CreamType.Filled;
+                    else if (CheckCreamType(values[0]) == CreamType.Unfilled &&
+                        CheckCreamType(values[1]) == CreamType.Unfilled)
+                        order.state = CreamType.Unfilled;
+                    else if (CheckCreamType(values[0]) == CreamType.Overfilled &&
+                        CheckCreamType(values[1]) == CreamType.Overfilled)
+                        order.state = CreamType.Overfilled;
                     else
-                        orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Wrong;
+                        order.state = CreamType.Wrong;
                 }
-                Debug.Log("OrderController: Cream type " + orders[orders.Count - 1].GetComponent<Order>().state);
+                Debug.Log("OrderController: Cream type " + order.state);
                 // Continue moving
-                orders[orders.Count - 1].GetComponent<Order>().StartMove();
+                order.StartMove();
                 // Create the next order
                 CreateOrder();
                 Debug.Log("OrderController: Cream stops making");
             }
         }
+    }
+
+    protected CreamType CheckCreamType(float v) {
+        if (v > minFill && v <= maxFill)
+            return CreamType.Filled;
+        else if (v <= minFill)
+            return CreamType.Unfilled;
+        else
+            return CreamType.Overfilled;
     }
 }

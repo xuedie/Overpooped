@@ -20,13 +20,9 @@ public class InputManager : MonoBehaviour
 
     string pressedText="Pad";
 
-    public enum Buttonchoice
-    {
-        pad,
-        trigger
-    };
+    
 
-    Buttonchoice buttonchoice;
+    
 
      enum ShitType
     {
@@ -42,7 +38,7 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         ph1 = ph2 = pv1 = pv2 = d1 = d2 = 0f;
-        buttonchoice = Buttonchoice.pad;
+       
     }
 
     // Update is called once per frame
@@ -62,34 +58,18 @@ public class InputManager : MonoBehaviour
         Vector2 moveDir2 = new Vector2(h2 - ph2, v2 - pv2);
         d2 = moveDir2.magnitude;
 
-        if (Mathf.Abs(Input.GetAxis(pressedText+"2")) > 0 && (Mathf.Abs(h1) > 0))
-        {
-            iswhite = true;
-        }
-        else iswhite = false;
+        
 
-        if (Mathf.Abs(Input.GetAxis(pressedText+"1")) > 0 && (Mathf.Abs(h2) > 0))
+        if(Input.GetButtonDown("A1"))
         {
-            isblack = true;
+            Debug.Log("A1 pressed");
         }
-        else isblack = false;
-
-        if (Mathf.Abs(Input.GetAxis(pressedText + "1")) > 0 && (Mathf.Abs(h2) > 0) && Mathf.Abs(Input.GetAxis(pressedText + "2")) > 0 && (Mathf.Abs(h1) > 0))
+        if(Input.GetButtonDown("A2"))
         {
-            isdouble = true;
+            Debug.Log("A2 pressed");
         }
-        else isdouble = false;
 
-
-
-        if(buttonchoice==Buttonchoice.pad)
-        {
-            pressedText = "Pad";
-        }
-        else
-        {
-            pressedText = "LT";
-        }
+      
 
     }
 
@@ -108,27 +88,42 @@ public class InputManager : MonoBehaviour
     {
         if (type == OrderType.White)
         {
-            return iswhite;
+            return Input.GetButtonDown("LeftBumper1");
         }
 
         else if (type == OrderType.Black)
         {
-            return isblack;
+            return Input.GetButtonDown("LeftBumper2");
         }
 
         else if (type == OrderType.Double)
         {
-            return isdouble;
+            return Input.GetButtonDown("LeftBumper1") &&Input.GetButtonDown("LeftBumper2");
         }
         else return (false); 
 
        // return Input.GetKeyDown(map[type]);
     }
 
-    //public bool GetKeyUp(OrderType type)
-    //{
-    //  //  return Input.GetKeyUp(map[type]);
-    //}
+    public bool GetKeyUp(OrderType type)
+    {
+        if (type == OrderType.White)
+        {
+            return Input.GetButtonUp("LeftBumper1");
+        }
+
+        else if (type == OrderType.Black)
+        {
+            return Input.GetButtonUp("LeftBumper2");
+        }
+
+        else if (type == OrderType.Double)
+        {
+            return Input.GetButtonUp("LeftBumper1") && Input.GetButtonUp("LeftBumper2");
+        }
+        else return (false);
+
+    }
 
     public float GetRotateValue(int playerIdx)
     {
