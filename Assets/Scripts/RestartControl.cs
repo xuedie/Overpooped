@@ -12,11 +12,11 @@ public class RestartControl : MonoBehaviour
     void Update()
     {
         // check left and right input
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetButtonDown("A1"))
         {
             ReadyPlayerOne();
         }
-        else if (Input.GetKeyDown(KeyCode.S)) {
+        else if (Input.GetKeyDown(KeyCode.S) || Input.GetButtonDown("A2")) {
             ReadyPlayerTwo();
         }
 

@@ -119,7 +119,7 @@ public class InputManager : MonoBehaviour
         }
 
         //下面的if还需要加蛋筒ready to be filled的validation
-        if (d1 > pressTh && Input.GetButtonDown("LeftBumper2") || d2 > pressTh && Input.GetButtonDown("LeftBumper1")))
+        if ((d1 > pressTh && Input.GetButtonDown("LeftBumper2") || d2 > pressTh && Input.GetButtonDown("LeftBumper1")))
 		{
 			if (!SoundManager.instance.sfxSource.isPlaying)
 			{
@@ -127,7 +127,7 @@ public class InputManager : MonoBehaviour
 			}
 		} else
 		{
-            if (SoundManager.instance.SFXinPlay == "icecreamSquirt" && SoundManager.instance.sfxSource.isPlaying)
+            if (SoundManager.instance.SFXinPlay() == "icecreamSquirt" && SoundManager.instance.sfxSource.isPlaying)
 			{
 				SoundManager.instance.sfxSource.Pause();
 			}

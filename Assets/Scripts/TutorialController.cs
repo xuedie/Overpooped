@@ -25,12 +25,12 @@ public class TutorialController : OrderController
             {
                 SceneManager.LoadScene("Gameplay");
             }
-            if (!p1Ready && Input.GetKeyDown(KeyCode.Z))
+            if (!p1Ready && (Input.GetKeyDown(KeyCode.Z) || Input.GetButtonDown("A1")))
             {
                 p1Ready = true;
                 startSigns[0].SetActive(true);
             }
-            if (!p2Ready && Input.GetKeyDown(KeyCode.X))
+            if (!p2Ready && (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("A2")))
             {
                 p2Ready = true;
                 startSigns[1].SetActive(true);
