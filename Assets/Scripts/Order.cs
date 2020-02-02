@@ -66,12 +66,14 @@ public class Order : MonoBehaviour
 
     public void StartMove()
     {
+        Debug.Log("Order: StartMove");
         isMove = true;
         SoundManager.instance.PlaySFX("conveyorBelt");
     }
 
     public void PauseMove()
     {
+        Debug.Log("Order: PauseMove");
         isMove = false;
     }
 
@@ -83,6 +85,7 @@ public class Order : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.tag == "Machine")
         {
             isReadyMake = true;

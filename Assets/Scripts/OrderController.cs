@@ -11,7 +11,7 @@ public class OrderController : MonoBehaviour
     [SerializeField]
     GameObject initialPos;
     [SerializeField]
-    float orderSpeed = 3.5f;
+    float orderSpeed = 8f;
     [SerializeField]
     float valueSpeed = 5f;
     [SerializeField]
@@ -19,9 +19,13 @@ public class OrderController : MonoBehaviour
 
     protected bool isMakeWhite;
     protected bool isMakeBlack;
+    bool isCoro = false;
+    int count = 0;
+    int noDoubleNum = 5;
     [SerializeField]
     float maxFill = 100f;
     public float minFill = 90f;
+    public float maxOrderSpeed = 20f;
     float[] tmpValues = { 0, 0 };
 
     public static OrderController instance;
@@ -50,6 +54,10 @@ public class OrderController : MonoBehaviour
 
     virtual protected void Update()    
     {
+        if (!isCoro)
+        {
+            StartCoroutine(CountDown());
+        }
         // Call when player pressing the button
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -100,7 +108,15 @@ public class OrderController : MonoBehaviour
     void CreateOrder()
     {
         GameObject order = Instantiate(orderPrefab, initialPos.transform.position, Quaternion.identity);
-        order.GetComponent<Order>().Initailize(OrderType.White, orderSpeed);
+        if (count > noDoubleNum)
+        {
+            order.GetComponent<Order>().Initailize((OrderType)Random.Range(0, 3), orderSpeed);
+        }
+        else
+        {
+            order.GetComponent<Order>().Initailize((OrderType)Random.Range(0, 2), orderSpeed);
+            count++;
+        }
         orders.Add(order);
         Debug.Log("OrderController: orders " + orders.Count);
     }
@@ -204,6 +220,15 @@ public class OrderController : MonoBehaviour
                 Debug.Log("OrderController: Cream stops making");
             }
         }
+    }
+
+    IEnumerator CountDown()
+    {
+        isCoro = true;
+        float seconds = 20f + Random.Range(-10f, 10f);
+        yield return new WaitForSeconds(seconds);
+        orderSpeed = orderSpeed + 0.5f < maxOrderSpeed ? orderSpeed + 0.5f : orderSpeed;
+        isCoro = false;
     }
 
     protected CreamType CheckCreamType(float v) {
