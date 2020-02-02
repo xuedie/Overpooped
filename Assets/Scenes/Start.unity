@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 49558185}
   - component: {fileID: 49558184}
   m_Layer: 5
-  m_Name: Reday2
+  m_Name: RedayLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orders: []
-  orderPrefab: {fileID: 2316760030573010869, guid: ac666aaaf9d6df94a97972876544092b,
+  orderPrefab: {fileID: 5537558344779024769, guid: 8f9b79dc6e155b44d8e517455db7b3f8,
     type: 3}
   initialPos: {fileID: 1921284349}
   orderSpeed: 3.5
@@ -235,6 +235,7 @@ MonoBehaviour:
   minFill: 90
   maxOrderSpeed: 20
   hints:
+  - {fileID: 2064582722}
   - {fileID: 1202269421}
   - {fileID: 372347687}
   - {fileID: 843391701}
@@ -967,6 +968,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 724463818, guid: f08156b7f0ada814ba3baec5385f3173, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 219216156, guid: f08156b7f0ada814ba3baec5385f3173, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f08156b7f0ada814ba3baec5385f3173, type: 3}
 --- !u!1 &843391701
@@ -1155,7 +1164,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1202269422
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1172,8 +1181,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.8, y: 0}
-  m_SizeDelta: {x: 394.79, y: 117.68}
+  m_AnchoredPosition: {x: 44, y: 115.26}
+  m_SizeDelta: {x: 773.9, y: 348.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1202269423
 MonoBehaviour:
@@ -1196,9 +1205,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: e0ed901ed85be2f4abf7cb117cc1c4ab, type: 3}
     m_FontSize: 14
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
@@ -1208,7 +1217,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press and Hold the Button A/S
+  m_Text: 'Press and Hold the Bumper
+
+    Left player''s bumper controls the choco flavor
+
+    Right player''s bumper controls the vanilla flavor
+
+'
 --- !u!222 &1202269424
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1356,7 +1371,7 @@ GameObject:
   - component: {fileID: 1339378178}
   - component: {fileID: 1339378177}
   m_Layer: 5
-  m_Name: READY1
+  m_Name: READYRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1797,7 +1812,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2064582723
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1838,13 +1853,13 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: e0ed901ed85be2f4abf7cb117cc1c4ab, type: 3}
     m_FontSize: 14
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0

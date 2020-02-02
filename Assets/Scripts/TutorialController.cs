@@ -35,6 +35,10 @@ public class TutorialController : OrderController
                 p2Ready = true;
                 startSigns[1].SetActive(true);
             }
+            if (p1Ready && p2Ready) {
+                hints[0].SetActive(false);
+                hints[1].SetActive(true);
+            }
         }
         else {
             base.Update();

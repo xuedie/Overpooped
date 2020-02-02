@@ -147,15 +147,57 @@ public class OrderController : MonoBehaviour
        if (isMakeWhite)
        {
             orders[0].GetComponent<Order>().values[0] += InputManager.instance.GetRotateValue(0) * valueSpeed;
-       }
+            if (orders[0].GetComponent<Order>().type == OrderType.Double)
+            {
+                Color tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                tmp.a = orders[0].GetComponent<Order>().values[0] / 100f;
+                orders[0].GetComponent<Order>().tops[2].GetComponent<SpriteRenderer>().color = tmp;
+            }
+            else
+            {
+                Color tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                tmp.a = orders[0].GetComponent<Order>().values[0] / 100f;
+                orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color = tmp;
+            }
+        }
        else if (isMakeBlack)
        {
             orders[0].GetComponent<Order>().values[1] += InputManager.instance.GetRotateValue(1) * valueSpeed;
-       }
+            if (orders[0].GetComponent<Order>().type == OrderType.Double)
+            {
+                Color tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                tmp.a = orders[0].GetComponent<Order>().values[1] / 100f;
+                orders[0].GetComponent<Order>().tops[3].GetComponent<SpriteRenderer>().color = tmp;
+            }
+            else
+            {
+                Color tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                tmp.a = orders[0].GetComponent<Order>().values[1] / 100f;
+                orders[0].GetComponent<Order>().tops[1].GetComponent<SpriteRenderer>().color = tmp;
+            }
+        }
         else if (isMakeWhite && isMakeBlack)
         {
             orders[0].GetComponent<Order>().values[0] += InputManager.instance.GetRotateValue(0) * valueSpeed;
             orders[0].GetComponent<Order>().values[1] += InputManager.instance.GetRotateValue(1) * valueSpeed;
+            if (orders[0].GetComponent<Order>().type == OrderType.Double)
+            {
+                Color tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                tmp.a = orders[0].GetComponent<Order>().values[0] / 100f;
+                orders[0].GetComponent<Order>().tops[2].GetComponent<SpriteRenderer>().color = tmp;
+                tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                tmp.a = orders[0].GetComponent<Order>().values[1] / 100f;
+                orders[0].GetComponent<Order>().tops[3].GetComponent<SpriteRenderer>().color = tmp;
+            }
+            else
+            {
+                Color tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                tmp.a = orders[0].GetComponent<Order>().values[0] / 100f;
+                orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color = tmp;
+                tmp = orders[0].GetComponent<Order>().tops[0].GetComponent<SpriteRenderer>().color;
+                tmp.a = orders[0].GetComponent<Order>().values[1] / 100f;
+                orders[0].GetComponent<Order>().tops[1].GetComponent<SpriteRenderer>().color = tmp;
+            }
         }
 
         // Update the values of two sliders
