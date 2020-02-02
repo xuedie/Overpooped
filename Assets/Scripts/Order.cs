@@ -59,6 +59,7 @@ public class Order : MonoBehaviour
 
     public void Initailize(OrderType curType, float curSpeed)
     {
+        type = curType;
         speed = curSpeed;
         StartMove();
     }

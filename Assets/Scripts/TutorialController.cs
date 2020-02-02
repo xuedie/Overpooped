@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class TutorialController : OrderController
 {
-    [SerializeField] GameObject[] hints;
+    [SerializeField] GameObject[] hints, startSigns;
+    [SerializeField] bool p1Ready, p2Ready;
 
     override protected void Start()
     {
@@ -18,9 +19,25 @@ public class TutorialController : OrderController
     // Update is called once per frame
     override protected void Update()
     {
-        base.Update();
-        if (Input.GetKeyDown(KeyCode.B)) {
-            SceneManager.LoadScene("Gameplay");
+        if (!p1Ready || !p2Ready)
+        {
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                SceneManager.LoadScene("Gameplay");
+            }
+            if (!p1Ready && Input.GetKeyDown(KeyCode.Z))
+            {
+                p1Ready = true;
+                startSigns[0].SetActive(true);
+            }
+            if (!p2Ready && Input.GetKeyDown(KeyCode.X))
+            {
+                p2Ready = true;
+                startSigns[1].SetActive(true);
+            }
+        }
+        else {
+            base.Update();
         }
     }
 
@@ -77,24 +94,12 @@ public class TutorialController : OrderController
                     else
                         order.state = CreamType.Wrong;
                 }
-                switch (order.state) {
-                    case CreamType.Filled:
-                        // create next order
-                        if (order.type == OrderType.White)
-                        {
-                            CreateOrder(OrderType.Black);
-                        }
-                        else {
-                            // 
-                        }
-                        break;
-                    case CreamType.Overfilled:
-                    case CreamType.Unfilled:
-                        break;
-                    default:
-                        break;
-                }
                 Debug.Log("OrderController: Cream type " + order.state);
+                // Continue moving
+                order.StartMove();
+                // Create the next order
+                // CreateOrder();
+                Debug.Log("OrderController: Cream stops making");
             }
         }
     }
@@ -102,13 +107,24 @@ public class TutorialController : OrderController
     override public void AssessOrder()
     {
         Debug.Log("OrderController: assess orders " + orders.Count);
-        if (orders[0].GetComponent<Order>().state == CreamType.Filled)
+        Order order = orders[0].GetComponent<Order>();
+        if (order.state == CreamType.Filled)
         {
-            orders[0].GetComponent<Order>().StartMove();
+            order.StartMove();
+            if (order.type == OrderType.White)
+            {
+                CreateOrder(OrderType.Black);
+            }
+            else
+            {
+                // wait and load scene
+                GameManager.instance.GameStart();
+            }
         }
         else
         {
             orders[0].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+            CreateOrder(order.type);
         }
         GameObject assessedOrder = orders[0];
         orders.RemoveAt(0);
