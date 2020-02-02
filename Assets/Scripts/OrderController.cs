@@ -95,14 +95,6 @@ public class OrderController : MonoBehaviour
         }
         // Update the values of two sliders
         sliderController.SyncroValue(orders[0].GetComponent<Order>().values);
-
-        //if (orders.Count > 1 && orders[0].GetComponent<Order>().IsReadyAssess)
-        //{
-        //    AssessOrder();
-        //    GameObject assessedOrder = orders[0];
-        //    orders.RemoveAt(0);
-        //    assessedOrder.GetComponent<Order>().DestroyOrder();
-        //}
     }
 
     void CreateOrder()
