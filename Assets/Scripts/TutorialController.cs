@@ -133,5 +133,7 @@ public class TutorialController : OrderController
         GameObject assessedOrder = orders[0];
         orders.RemoveAt(0);
         assessedOrder.GetComponent<Order>().DestroyOrder();
+        hints[1].SetActive(true);
+        hints[2].SetActive(false);
     }
 }

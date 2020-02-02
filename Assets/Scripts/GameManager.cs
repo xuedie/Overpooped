@@ -79,4 +79,8 @@ public class GameManager : MonoBehaviour
         score++;
     }
 
+    public int GetScore()
+    {
+        return score;
+    }
 }

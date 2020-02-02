@@ -968,13 +968,9 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 724463818, guid: f08156b7f0ada814ba3baec5385f3173, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 219216156, guid: f08156b7f0ada814ba3baec5385f3173, type: 3}
-      propertyPath: m_SortingOrder
-      value: 4
+    - target: {fileID: 223012190, guid: f08156b7f0ada814ba3baec5385f3173, type: 3}
+      propertyPath: gameTimeInMin
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f08156b7f0ada814ba3baec5385f3173, type: 3}
