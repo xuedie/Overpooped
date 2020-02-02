@@ -74,4 +74,9 @@ public class GameManager : MonoBehaviour
         }
         StartCoroutine(MainTimer());
     }
+
+    public void IncreaseOrder() {
+        score++;
+    }
+
 }

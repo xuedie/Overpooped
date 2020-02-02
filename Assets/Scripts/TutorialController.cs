@@ -49,8 +49,8 @@ public class TutorialController : OrderController
         if (orders[orders.Count - 1].GetComponent<Order>().IsReadyMake)
         {
             isMakeWhite = true;
-            hints[0].SetActive(false);
-            hints[1].SetActive(true);
+            hints[1].SetActive(false);
+            hints[2].SetActive(true);
             Debug.Log("OrderController: Cream starts making.");
         }
     }
@@ -60,8 +60,8 @@ public class TutorialController : OrderController
         if (orders[orders.Count - 1].GetComponent<Order>().IsReadyMake)
         {
             isMakeBlack = true;
-            hints[0].SetActive(false);
-            hints[1].SetActive(true);
+            hints[1].SetActive(false);
+            hints[2].SetActive(true);
             Debug.Log("OrderController: Cream starts making.");
         }
     }

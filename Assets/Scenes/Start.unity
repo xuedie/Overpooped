@@ -233,7 +233,7 @@ MonoBehaviour:
   sliderController: {fileID: 1113101259}
   maxFill: 100
   minFill: 90
-  maxOrderSpeed: 20
+  maxOrderSpeed: 5
   hints:
   - {fileID: 2064582722}
   - {fileID: 1202269421}
@@ -299,8 +299,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.8, y: 0}
-  m_SizeDelta: {x: 394.79, y: 117.68}
+  m_AnchoredPosition: {x: 23, y: 164.76}
+  m_SizeDelta: {x: 757.6, y: 249.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &372347689
 MonoBehaviour:
@@ -323,9 +323,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: e0ed901ed85be2f4abf7cb117cc1c4ab, type: 3}
     m_FontSize: 14
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
@@ -335,8 +335,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Rotate joystick to make ice cream. Stop rotate and release button when done.
-    Do not overfill or underfill
+  m_Text: "Rotate joystick to make ice cream. \nStop rotate and release bumper when
+    done.\n Do not overfill or underfill"
 --- !u!222 &372347690
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1012,7 +1012,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.8, y: 0}
+  m_AnchoredPosition: {x: 18, y: 170}
   m_SizeDelta: {x: 394.79, y: 117.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &843391703
@@ -1036,9 +1036,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: e0ed901ed85be2f4abf7cb117cc1c4ab, type: 3}
     m_FontSize: 14
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
@@ -1164,7 +1164,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1202269422
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1744,7 +1744,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.8, y: 0}
+  m_AnchoredPosition: {x: 18, y: 179}
   m_SizeDelta: {x: 394.79, y: 117.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1876748281
@@ -1768,9 +1768,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: e0ed901ed85be2f4abf7cb117cc1c4ab, type: 3}
     m_FontSize: 14
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
