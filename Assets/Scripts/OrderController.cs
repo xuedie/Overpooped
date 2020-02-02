@@ -119,11 +119,14 @@ public class OrderController : MonoBehaviour
         Debug.Log("OrderController: assess orders " + orders.Count);
         if(orders[0].GetComponent<Order>().state == CreamType.Filled)
         {
+            SoundManager.instance.PlayOrderSound(true);
             orders[0].GetComponent<Order>().StartMove();
         }
         else
         {
+            SoundManager.instance.PlayOrderSound(false);
             orders[0].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+            SoundManager.instance.PlaySFX("icecreamDrop");
         }
         GameObject assessedOrder = orders[0];
         orders.RemoveAt(0);

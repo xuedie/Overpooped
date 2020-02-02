@@ -67,6 +67,7 @@ public class Order : MonoBehaviour
     public void StartMove()
     {
         isMove = true;
+        SoundManager.instance.PlaySFX("conveyorBelt");
     }
 
     public void PauseMove()
