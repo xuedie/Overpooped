@@ -236,6 +236,7 @@ public class OrderController : MonoBehaviour
         {
             SoundManager.instance.PlayOrderSound(true);
             orders[0].GetComponent<Order>().StartMove();
+            GameManager.instance.IncreaseOrder();
         }
         else
         {
@@ -331,9 +332,9 @@ public class OrderController : MonoBehaviour
     }
 
     protected CreamType CheckCreamType(float v) {
-        if (v > minFill && v <= maxFill)
+        if (v > minFill && v < maxFill)
             return CreamType.Filled;
-        else if (v <= minFill)
+        else if (v < minFill)
             return CreamType.Unfilled;
         else
             return CreamType.Overfilled;

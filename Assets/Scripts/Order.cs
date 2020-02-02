@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum OrderType
 {
@@ -24,6 +25,7 @@ public class Order : MonoBehaviour
     public float speed;
     public float[] values = {0f, 0f};
     public GameObject[] tops;
+    public Text text;
 
     float delaytime = 5f;
     bool isMove = false;
@@ -62,6 +64,18 @@ public class Order : MonoBehaviour
     {
         type = curType;
         speed = curSpeed;
+        if(curType == OrderType.White)
+        {
+            text.text = "VANILLA";
+        }
+        else if(curType == OrderType.Black)
+        {
+            text.text = "CHOCOLATE";
+        }
+        else
+        {
+            text.text = "DOUBLE";
+        }
         StartMove();
     }
 
