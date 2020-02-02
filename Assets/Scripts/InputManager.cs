@@ -20,9 +20,14 @@ public class InputManager : MonoBehaviour
 
     string pressedText="Pad";
 
-    
 
-    
+    Vector2 blackhand;
+    Vector2 whitehand;
+
+    public float minX0,maxX0, minY0, maxY0;
+    public float minX1, maxX1, minY1, maxY1;
+
+    public float BellyRange=3f;
 
      enum ShitType
     {
@@ -35,6 +40,11 @@ public class InputManager : MonoBehaviour
 
     float ph1, ph2, pv1, pv2;
     float d1, d2;
+    private void Awake()
+    {
+        blackhand = hands[0].transform.position;
+        whitehand = hands[1].transform.position;
+    }
     void Start()
     {
         ph1 = ph2 = pv1 = pv2 = d1 = d2 = 0f;
@@ -46,7 +56,25 @@ public class InputManager : MonoBehaviour
     {
 
         HandMove();
-        
+        //float Brange = new Vector2(blackhand.x - hands[0].transform.position.x, blackhand.y = hands[0].transform.position.y).magnitude;
+
+        //Debug.Log(Brange);
+        //if(Brange>BellyRange)
+        //{
+        //    hands[0].transform.position = Vector2.Lerp(hands[0].transform.position, blackhand, Time.deltaTime*Mathf.Abs(Brange-BellyRange));
+
+        //}
+        //else if(Mathf.Abs(blackhand.y-hands[0].transform.position.y)>BellyRange)
+        //{
+        //    hands[0].transform.position = Vector2.Lerp(hands[0].transform.position, blackhand, Time.deltaTime * Mathf.Abs(Brange - BellyRange));
+        //}
+
+        hands[0].transform.position = new Vector2(Mathf.Clamp(hands[0].transform.position.x, minX0, maxX0), 
+            Mathf.Clamp(hands[0].transform.position.y, minY0, maxY0));
+
+        hands[1].transform.position = new Vector2(Mathf.Clamp(hands[1].transform.position.x, minX1, maxX1),
+         Mathf.Clamp(hands[1].transform.position.y, minY1, maxY1));
+
 
         float h1 = Input.GetAxis("RightJoystickH1");
         float v1 = Input.GetAxis("RightJoystickV1");
