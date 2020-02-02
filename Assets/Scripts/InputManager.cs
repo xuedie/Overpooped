@@ -48,8 +48,20 @@ public class InputManager : MonoBehaviour
 
     float ph1, ph2, pv1, pv2;
     float d1, d2;
+
+    public static InputManager instance;
+    InputManager() { }
+
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
         blackhand = hands[0].transform.position;
         whitehand = hands[1].transform.position;
     }
@@ -64,7 +76,7 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         HandMove();
        
 
@@ -73,7 +85,7 @@ public class InputManager : MonoBehaviour
 
         hands[1].transform.position = new Vector2(Mathf.Clamp(hands[1].transform.position.x, minX1, maxX1),
          Mathf.Clamp(hands[1].transform.position.y, minY1, maxY1));
-
+        
 
         float h1 = Input.GetAxis("RightJoystickH1");
         float v1 = Input.GetAxis("RightJoystickV1");
@@ -85,7 +97,9 @@ public class InputManager : MonoBehaviour
         Vector2 moveDir2 = new Vector2(h2 - ph2, v2 - pv2);
         d2 = moveDir2.magnitude;
 
-		ph1 = h1;
+        Debug.Log(d1);
+        Debug.Log(d2);
+        ph1 = h1;
 		ph2 = h2;
 		pv1 = v1;
 		pv2 = v2;
@@ -146,21 +160,21 @@ public class InputManager : MonoBehaviour
 
     }
 
-    public bool Getkeydown(OrderType type)
+    public bool GetKeyDown(OrderType type)
     {
         if (type == OrderType.White)
-        {
-            return Input.GetButtonDown("LeftBumper1");
-        }
-
-        else if (type == OrderType.Black)
         {
             return Input.GetButtonDown("LeftBumper2");
         }
 
+        else if (type == OrderType.Black)
+        {
+            return Input.GetButtonDown("LeftBumper1");
+        }
+
         else if (type == OrderType.Double)
         {
-            return Input.GetButtonDown("LeftBumper1") &&Input.GetButtonDown("LeftBumper2");
+            return Input.GetButtonDown("LeftBumper1") && Input.GetButtonDown("LeftBumper2");
         }
         else return (false); 
 

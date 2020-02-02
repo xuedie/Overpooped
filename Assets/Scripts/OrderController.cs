@@ -59,19 +59,19 @@ public class OrderController : MonoBehaviour
             StartCoroutine(CountDown());
         }
         // Call when player pressing the button
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) || InputManager.instance.GetKeyDown(OrderType.White))
         {
             StartMakeWhite();
         }
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKeyUp(KeyCode.A) || InputManager.instance.GetKeyUp(OrderType.White))
         {
             StopMake();
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) || InputManager.instance.GetKeyDown(OrderType.Black))
         {
             StartMakeBlack();
         }
-        if (Input.GetKeyUp(KeyCode.S))
+        if (Input.GetKeyUp(KeyCode.S) || InputManager.instance.GetKeyUp(OrderType.Black))
         {
             StopMake();
         }
@@ -97,10 +97,25 @@ public class OrderController : MonoBehaviour
         {
             if (isMakeWhite && isMakeBlack)
             {
-                orders[0].GetComponent<Order>().values[1] += valueSpeed * Time.deltaTime;
+                orders[0].GetComponent<Order>().values[0] += valueSpeed * Time.deltaTime;
                 orders[0].GetComponent<Order>().values[1] += valueSpeed * Time.deltaTime;
             }
         }
+
+       if (isMakeWhite)
+       {
+            orders[0].GetComponent<Order>().values[0] = InputManager.instance.GetRotateValue(0) * valueSpeed;
+       }
+       else if (isMakeBlack)
+       {
+            orders[0].GetComponent<Order>().values[1] = InputManager.instance.GetRotateValue(1) * valueSpeed;
+       }
+        else if (isMakeWhite && isMakeBlack)
+        {
+            orders[0].GetComponent<Order>().values[0] = InputManager.instance.GetRotateValue(0) * valueSpeed;
+            orders[0].GetComponent<Order>().values[1] = InputManager.instance.GetRotateValue(1) * valueSpeed;
+        }
+
         // Update the values of two sliders
         sliderController.SyncroValue(orders[0].GetComponent<Order>().values);
     }

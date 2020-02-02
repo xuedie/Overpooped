@@ -1046,6 +1046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 951888606}
   - component: {fileID: 951888605}
+  - component: {fileID: 951888607}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -1076,6 +1077,7 @@ MonoBehaviour:
   iswhite: 0
   isblack: 0
   isdouble: 0
+  pressTh: 0.01
   minX0: 0
   maxX0: 10
   minY0: -10
@@ -1099,6 +1101,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &951888607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951888604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7520f13a3ed67b44bbfd9e0df9dfec1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1113101259 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1293985665, guid: f08156b7f0ada814ba3baec5385f3173,
