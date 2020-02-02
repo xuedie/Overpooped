@@ -12,6 +12,9 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     GameObject[] hands;
 
+    [SerializeField]
+    GameObject[] bears;
+
     public int playerId;
 
     public bool iswhite = false;
@@ -28,6 +31,9 @@ public class InputManager : MonoBehaviour
     public float minX1, maxX1, minY1, maxY1;
 
     public float BellyRange=3f;
+
+    Animator whitebearAnim;
+    Animator brownbearAnim;
 
      enum ShitType
     {
@@ -48,6 +54,8 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         ph1 = ph2 = pv1 = pv2 = d1 = d2 = 0f;
+        brownbearAnim = bears[0].GetComponent<Animator>();
+        whitebearAnim = bears[1].GetComponent<Animator>();
        
     }
 
@@ -56,18 +64,7 @@ public class InputManager : MonoBehaviour
     {
 
         HandMove();
-        //float Brange = new Vector2(blackhand.x - hands[0].transform.position.x, blackhand.y = hands[0].transform.position.y).magnitude;
-
-        //Debug.Log(Brange);
-        //if(Brange>BellyRange)
-        //{
-        //    hands[0].transform.position = Vector2.Lerp(hands[0].transform.position, blackhand, Time.deltaTime*Mathf.Abs(Brange-BellyRange));
-
-        //}
-        //else if(Mathf.Abs(blackhand.y-hands[0].transform.position.y)>BellyRange)
-        //{
-        //    hands[0].transform.position = Vector2.Lerp(hands[0].transform.position, blackhand, Time.deltaTime * Mathf.Abs(Brange - BellyRange));
-        //}
+       
 
         hands[0].transform.position = new Vector2(Mathf.Clamp(hands[0].transform.position.x, minX0, maxX0), 
             Mathf.Clamp(hands[0].transform.position.y, minY0, maxY0));
@@ -97,7 +94,26 @@ public class InputManager : MonoBehaviour
             Debug.Log("A2 pressed");
         }
 
-      
+
+        if(Mathf.Abs(h2)>0.01||Mathf.Abs(v2)>0.01)
+        {
+            WhiteBearPooping();
+        }
+        else
+        {
+            WhiteStopPooping();
+        }
+
+        if (Mathf.Abs(h1) > 0.01 || Mathf.Abs(v1) > 0.01)
+        {
+            BrownBearPooping();
+        }
+        else
+        {
+            BrownStopPooping();
+        }
+
+
 
     }
 
@@ -162,5 +178,25 @@ public class InputManager : MonoBehaviour
         else {
             return d2;
         }
+    }
+
+
+
+    public void WhiteBearPooping()
+    {
+        whitebearAnim.SetBool("IsWhitePoop", true);
+    }
+    public void WhiteStopPooping()
+    {
+        whitebearAnim.SetBool("IsWhitePoop", false);
+    }
+
+    public void BrownBearPooping()
+    {
+         brownbearAnim.SetBool("IsBrownPoop", true);
+    }
+    public void BrownStopPooping()
+    {
+        brownbearAnim.SetBool("IsBrownPoop", false);
     }
 }
