@@ -59,17 +59,20 @@ public class Order : MonoBehaviour
 
     public void Initailize(OrderType curType, float curSpeed)
     {
+        type = curType;
         speed = curSpeed;
         StartMove();
     }
 
     public void StartMove()
     {
+        Debug.Log("Order: StartMove");
         isMove = true;
     }
 
     public void PauseMove()
     {
+        Debug.Log("Order: PauseMove");
         isMove = false;
     }
 
@@ -81,6 +84,7 @@ public class Order : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.tag == "Machine")
         {
             isReadyMake = true;
