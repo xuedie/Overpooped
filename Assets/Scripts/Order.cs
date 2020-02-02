@@ -28,6 +28,8 @@ public class Order : MonoBehaviour
     public Text text;
 
     float delaytime = 5f;
+    bool isFirstMake = false;
+    bool isFirstAssess = false;
     bool isMove = false;
     bool isReadyMake, isReadyAssess;
 
@@ -101,16 +103,19 @@ public class Order : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.tag == "Machine")
+        if (!isFirstMake && collision.gameObject.tag == "Machine")
         {
             isReadyMake = true;
+            isFirstMake = true;
+            PauseMove();
         }
-        else if(collision.gameObject.tag == "Assessor")
+        else if(!isFirstAssess && collision.gameObject.tag == "Assessor")
         {
             isReadyMake = false;
             isReadyAssess = true;
+            isFirstAssess = true;
             OrderController.instance.AssessOrder();
+            PauseMove();
         }
-        PauseMove();
     }
 }

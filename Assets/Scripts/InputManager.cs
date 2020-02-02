@@ -64,8 +64,8 @@ public class InputManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        blackhand = hands[0].transform.position;
-        whitehand = hands[1].transform.position;
+        blackhand = hands[1].transform.position;
+        whitehand = hands[0].transform.position;
     }
     void Start()
     {
@@ -99,8 +99,8 @@ public class InputManager : MonoBehaviour
         Vector2 moveDir2 = new Vector2(h2 - ph2, v2 - pv2);
         d2 = moveDir2.magnitude;
 
-        Debug.Log(d1);
-        Debug.Log(d2);
+        //Debug.Log(d1);
+        //Debug.Log(d2);
         ph1 = h1;
 		ph2 = h2;
 		pv1 = v1;
@@ -116,7 +116,7 @@ public class InputManager : MonoBehaviour
         }
 
 
-        if(d2>pressTh)
+        if(d1>pressTh)
         {
             WhiteBearPooping();
         }
@@ -125,7 +125,7 @@ public class InputManager : MonoBehaviour
             WhiteStopPooping();
         }
 
-        if (d1>pressTh)
+        if (d2>pressTh)
         {
             BrownBearPooping();
         }
