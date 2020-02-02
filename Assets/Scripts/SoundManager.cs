@@ -13,7 +13,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip[] orderSounds;
     public Dictionary<string, AudioClip> sfxDict = new Dictionary<string, AudioClip>();
 
-    void Start()
+    private void Awake()
     {
         if (instance == null)
         {
@@ -24,7 +24,10 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+    }
 
+    void Start()
+    {
         //audio files must be added to sfxSounds in Unity editor in the same order as following
 
         sfxDict.Add("conveyorBelt", sfxSounds[0]);
