@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] int score;
     [SerializeField] float gameTimeInMin = 2.0f;
+    [SerializeField] GameObject initPos;
+    [SerializeField] SliderController sliderController;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,15 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public GameObject GetInitialPosition() {
+        return initPos;
+    }
+
+    public SliderController GetSliderController()
+    {
+        return sliderController;
     }
 
     public void LoadScene(string name) {

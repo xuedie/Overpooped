@@ -35,12 +35,15 @@ public class OrderController : MonoBehaviour
         else {
             Destroy(this.gameObject);
         }
+
     }
 
     virtual protected void Start()
     {
         orders = new List<GameObject>(); // Store current orders
         isMakeWhite = isMakeBlack = false;
+        initialPos = GameManager.instance.GetInitialPosition();
+        sliderController = GameManager.instance.GetSliderController();
         // Game Starts
         CreateOrder();
     }
