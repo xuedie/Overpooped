@@ -22,7 +22,7 @@ public class RestartControl : MonoBehaviour
 
         // load back the gameplay scene
         if (p1Ready && p2Ready) {
-        	SceneManager.LoadScene("Gameplay");
+            GameManager.instance.GameStart();
         }
     }
 
