@@ -89,6 +89,7 @@ public class Order : MonoBehaviour
         {
             isReadyMake = false;
             isReadyAssess = true;
+            OrderController.instance.AssessOrder();
         }
         PauseMove();
     }
