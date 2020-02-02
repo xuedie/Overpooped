@@ -12,40 +12,94 @@ public class OrderController : MonoBehaviour
     GameObject initialPos;
     [SerializeField]
     float orderSpeed = 3.5f;
-
-    protected bool isMake;
     [SerializeField]
-    int maxFill = 100;
-    public int minFill = 90;
+    float valueSpeed = 5f;
+    [SerializeField]
+    SliderController sliderController;
+
+    protected bool isMakeWhite;
+    protected bool isMakeBlack;
+    [SerializeField]
+    float maxFill = 100f;
+    public float minFill = 90f;
+    float[] tmpValues = { 0, 0 };
+
+    public static OrderController instance;
+    protected OrderController() { }
+
+    void Awake()
+    {
+        if (instance == null) {
+            instance = this;
+        } 
+        else {
+            Destroy(this.gameObject);
+        }
+    }
 
     virtual protected void Start()
     {
         orders = new List<GameObject>(); // Store current orders
-        isMake = false;
+        isMakeWhite = isMakeBlack = false;
         // Game Starts
         CreateOrder();
     }
 
-    void Update()    
+    virtual protected void Update()    
     {
         // Call when player pressing the button
         if (Input.GetKeyDown(KeyCode.A))
         {
-            StartMake();
+            StartMakeWhite();
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
             StopMake();
         }
-
-        // Start assessing the order
-        if (orders.Count > 1 && orders[0].GetComponent<Order>().IsReadyAssess)
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            AssessOrder();
-            GameObject assessedOrder = orders[0];
-            orders.RemoveAt(0);
-            assessedOrder.GetComponent<Order>().DestroyOrder();
+            StartMakeBlack();
         }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            StopMake();
+        }
+
+        // Call when player rolling the stick
+        // Only for testing
+        // N as white, M as black
+        if (Input.GetKey(KeyCode.N) && !Input.GetKey(KeyCode.M))
+        {
+            if (isMakeWhite)
+            {
+                orders[0].GetComponent<Order>().values[0] += valueSpeed * Time.deltaTime;
+            }
+        }
+        else if(!Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.M))
+        {
+            if (isMakeBlack)
+            {
+                orders[0].GetComponent<Order>().values[1] += valueSpeed * Time.deltaTime;
+            }
+        }
+        else if (Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.M))
+        {
+            if (isMakeWhite && isMakeBlack)
+            {
+                orders[0].GetComponent<Order>().values[1] += valueSpeed * Time.deltaTime;
+                orders[0].GetComponent<Order>().values[1] += valueSpeed * Time.deltaTime;
+            }
+        }
+        // Update the values of two sliders
+        sliderController.SyncroValue(orders[0].GetComponent<Order>().values);
+
+        //if (orders.Count > 1 && orders[0].GetComponent<Order>().IsReadyAssess)
+        //{
+        //    AssessOrder();
+        //    GameObject assessedOrder = orders[0];
+        //    orders.RemoveAt(0);
+        //    assessedOrder.GetComponent<Order>().DestroyOrder();
+        //}
     }
 
     void CreateOrder()
@@ -56,6 +110,7 @@ public class OrderController : MonoBehaviour
         Debug.Log("OrderController: orders " + orders.Count);
     }
 
+
     protected void CreateOrder(OrderType type)
     {
         GameObject order = Instantiate(orderPrefab, initialPos.transform.position, Quaternion.identity);
@@ -64,51 +119,101 @@ public class OrderController : MonoBehaviour
         Debug.Log("OrderController: orders " + orders.Count);
     }
 
-    void AssessOrder()
+    virtual public void AssessOrder()
     {
+        Debug.Log("OrderController: assess orders " + orders.Count);
         if(orders[0].GetComponent<Order>().state == CreamType.Filled)
         {
             orders[0].GetComponent<Order>().StartMove();
         }
-        else if(orders[0].GetComponent<Order>().state == CreamType.Unfilled 
-            || orders[0].GetComponent<Order>().state == CreamType.Overfilled)
+        else
         {
             orders[0].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         }
+        GameObject assessedOrder = orders[0];
+        orders.RemoveAt(0);
+        assessedOrder.GetComponent<Order>().DestroyOrder();
     }
 
-    virtual public void StartMake()
+    virtual public void StartMakeWhite()
     {
-        if (!orders[orders.Count - 1].GetComponent<Order>().IsReadyMake)
+        if (orders[orders.Count - 1].GetComponent<Order>().IsReadyMake)
         {
-            isMake = true;
+            isMakeWhite = true;
+            Debug.Log("OrderController: Cream starts making.");
+        }
+    }
+
+    virtual public void StartMakeBlack()
+    {
+        if (orders[orders.Count - 1].GetComponent<Order>().IsReadyMake)
+        {
+            isMakeBlack = true;
             Debug.Log("OrderController: Cream starts making.");
         }
     }
 
     virtual public void StopMake()
     {
-        isMake = false;
-        if(orders.Count < 1)
+        if (isMakeWhite || isMakeBlack)
         {
-            Debug.LogError("OrderController: orders is empty.", transform);
-        }
-        else
-        {
-            // Determine the cream type for assessment
-            int orderValue = orders[orders.Count - 1].GetComponent<Order>().value;
-            if (orderValue > minFill && orderValue <= maxFill)
-                orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Filled;
-            else if (orderValue <= minFill)
-                orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Unfilled;
+            isMakeWhite = isMakeBlack = false;
+            if (orders.Count < 1)
+            {
+                Debug.LogError("OrderController: orders is empty.", transform);
+            }
             else
-                orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Overfilled;
-            Debug.Log("OrderController: Cream type " + orders[orders.Count - 1].GetComponent<Order>().state);
-            // Continue moving
-            orders[orders.Count - 1].GetComponent<Order>().StartMove();
-            // Create the next order
-            CreateOrder();
-            Debug.Log("OrderController: Cream stops making");
+            {
+                // Determine the cream type for assessment
+                Order order = orders[orders.Count - 1].GetComponent<Order>();
+                float[] values = order.values;
+                if (order.type == OrderType.White)
+                {
+                    if (values[1] == 0f)
+                    {
+                        order.state = CheckCreamType(values[0]);
+                    }
+                    else
+                        order.state = CreamType.Wrong;
+                }
+                else if (order.type == OrderType.Black)
+                {
+                    if (values[0] == 0f)
+                    {
+                        order.state = CheckCreamType(values[1]);
+                    }
+                    else
+                        order.state = CreamType.Wrong;
+                }
+                else {
+                    if (CheckCreamType(values[0]) == CreamType.Filled && 
+                        CheckCreamType(values[1]) == CreamType.Filled)
+                        order.state = CreamType.Filled;
+                    else if (CheckCreamType(values[0]) == CreamType.Unfilled &&
+                        CheckCreamType(values[1]) == CreamType.Unfilled)
+                        order.state = CreamType.Unfilled;
+                    else if (CheckCreamType(values[0]) == CreamType.Overfilled &&
+                        CheckCreamType(values[1]) == CreamType.Overfilled)
+                        order.state = CreamType.Overfilled;
+                    else
+                        order.state = CreamType.Wrong;
+                }
+                Debug.Log("OrderController: Cream type " + order.state);
+                // Continue moving
+                order.StartMove();
+                // Create the next order
+                CreateOrder();
+                Debug.Log("OrderController: Cream stops making");
+            }
         }
+    }
+
+    protected CreamType CheckCreamType(float v) {
+        if (v > minFill && v <= maxFill)
+            return CreamType.Filled;
+        else if (v <= minFill)
+            return CreamType.Unfilled;
+        else
+            return CreamType.Overfilled;
     }
 }
