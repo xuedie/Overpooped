@@ -37,6 +37,8 @@ public class InputManager : MonoBehaviour
     Animator whitebearAnim;
     Animator brownbearAnim;
 
+    public float rangescale = 0.1f;
+
      enum ShitType
     {
         Vanilla,
@@ -185,12 +187,12 @@ public class InputManager : MonoBehaviour
     {
         if (type == OrderType.White)
         {
-            return Input.GetButtonUp("LeftBumper1");
+            return Input.GetButtonUp("LeftBumper2");
         }
 
         else if (type == OrderType.Black)
         {
-            return Input.GetButtonUp("LeftBumper2");
+            return Input.GetButtonUp("LeftBumper1");
         }
 
         else if (type == OrderType.Double)

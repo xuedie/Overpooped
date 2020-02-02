@@ -104,16 +104,16 @@ public class OrderController : MonoBehaviour
 
        if (isMakeWhite)
        {
-            orders[0].GetComponent<Order>().values[0] = InputManager.instance.GetRotateValue(0) * valueSpeed;
+            orders[0].GetComponent<Order>().values[0] += InputManager.instance.GetRotateValue(0) * valueSpeed;
        }
        else if (isMakeBlack)
        {
-            orders[0].GetComponent<Order>().values[1] = InputManager.instance.GetRotateValue(1) * valueSpeed;
+            orders[0].GetComponent<Order>().values[1] += InputManager.instance.GetRotateValue(1) * valueSpeed;
        }
         else if (isMakeWhite && isMakeBlack)
         {
-            orders[0].GetComponent<Order>().values[0] = InputManager.instance.GetRotateValue(0) * valueSpeed;
-            orders[0].GetComponent<Order>().values[1] = InputManager.instance.GetRotateValue(1) * valueSpeed;
+            orders[0].GetComponent<Order>().values[0] += InputManager.instance.GetRotateValue(0) * valueSpeed;
+            orders[0].GetComponent<Order>().values[1] += InputManager.instance.GetRotateValue(1) * valueSpeed;
         }
 
         // Update the values of two sliders
