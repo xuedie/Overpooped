@@ -12,11 +12,16 @@ public class OrderController : MonoBehaviour
     GameObject initialPos;
     [SerializeField]
     float orderSpeed = 3.5f;
+    [SerializeField]
+    float valueSpeed = 5f;
+    [SerializeField]
+    SliderController sliderController;
 
     bool isMake;
     [SerializeField]
-    int maxFill = 100;
-    public int minFill = 90;
+    float maxFill = 100f;
+    public float minFill = 90f;
+    float[] tmpValues = {0, 0};
 
     void Start()
     {
@@ -37,6 +42,34 @@ public class OrderController : MonoBehaviour
         {
             StopMake();
         }
+
+        // Call when player rolling the stick
+        // Only for testing
+        // N as white, M as black
+        if (Input.GetKey(KeyCode.N) && !Input.GetKey(KeyCode.M))
+        {
+            if (isMake)
+            {
+                orders[0].GetComponent<Order>().values[0] += valueSpeed * Time.deltaTime;
+            }
+        }
+        else if(!Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.M))
+        {
+            if (isMake)
+            {
+                orders[0].GetComponent<Order>().values[1] += valueSpeed * Time.deltaTime;
+            }
+        }
+        else if (Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.M))
+        {
+            if (isMake)
+            {
+                orders[0].GetComponent<Order>().values[1] += valueSpeed * Time.deltaTime;
+                orders[0].GetComponent<Order>().values[1] += valueSpeed * Time.deltaTime;
+            }
+        }
+        // Update the values of two sliders
+        sliderController.SyncroValue(orders[0].GetComponent<Order>().values);
 
         // Start assessing the order
         if (orders.Count > 1 && orders[0].GetComponent<Order>().IsReadyAssess)
@@ -62,8 +95,7 @@ public class OrderController : MonoBehaviour
         {
             orders[0].GetComponent<Order>().StartMove();
         }
-        else if(orders[0].GetComponent<Order>().state == CreamType.Unfilled 
-            || orders[0].GetComponent<Order>().state == CreamType.Overfilled)
+        else
         {
             orders[0].GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         }
@@ -71,7 +103,7 @@ public class OrderController : MonoBehaviour
 
     public void StartMake()
     {
-        if (!orders[orders.Count - 1].GetComponent<Order>().IsReadyMake)
+        if (orders[orders.Count - 1].GetComponent<Order>().IsReadyMake)
         {
             isMake = true;
             Debug.Log("OrderController: Cream starts making.");
@@ -88,13 +120,46 @@ public class OrderController : MonoBehaviour
         else
         {
             // Determine the cream type for assessment
-            int orderValue = orders[orders.Count - 1].GetComponent<Order>().value;
-            if (orderValue > minFill && orderValue <= maxFill)
-                orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Filled;
-            else if (orderValue <= minFill)
-                orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Unfilled;
+            float[] values = orders[orders.Count - 1].GetComponent<Order>().values;
+            if(orders[orders.Count - 1].GetComponent<Order>().type == OrderType.White)
+            {
+                if(values[1] == 0f)
+                {
+                    if (values[0] > minFill && values[0] <= maxFill)
+                        orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Filled;
+                    else if (values[0] <= minFill)
+                        orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Unfilled;
+                    else
+                        orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Overfilled;
+                }
+                else
+                    orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Wrong;
+            }
+            else if(orders[orders.Count - 1].GetComponent<Order>().type == OrderType.Black)
+            {
+                if(values[0] == 0f)
+                {
+                    if (values[1] > minFill && values[1] <= maxFill)
+                        orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Filled;
+                    else if (values[1] <= minFill)
+                        orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Unfilled;
+                    else
+                        orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Overfilled;
+                }
+                else
+                    orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Wrong;
+            }
             else
-                orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Overfilled;
+            {
+                if (values[0] > minFill && values[0] <= maxFill && values[1] > minFill && values[1] <= maxFill)
+                    orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Filled;
+                else if (values[0] <= minFill && values[1] <= minFill)
+                    orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Unfilled;
+                else if (values[0] >= minFill && values[1] >= minFill)
+                    orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Overfilled;
+                else
+                    orders[orders.Count - 1].GetComponent<Order>().state = CreamType.Wrong;
+            }
             Debug.Log("OrderController: Cream type " + orders[orders.Count - 1].GetComponent<Order>().state);
             // Continue moving
             orders[orders.Count - 1].GetComponent<Order>().StartMove();

@@ -13,7 +13,8 @@ public enum CreamType
 {
     Unfilled,
     Filled,
-    Overfilled
+    Overfilled,
+    Wrong
 }
 
 public class Order : MonoBehaviour
@@ -21,7 +22,7 @@ public class Order : MonoBehaviour
     public OrderType type;
     public CreamType state;
     public float speed;
-    public int value;
+    public float[] values = {0f, 0f};
 
     float delaytime = 5f;
     bool isMove = false;
@@ -59,7 +60,6 @@ public class Order : MonoBehaviour
     public void Initailize(OrderType curType, float curSpeed)
     {
         speed = curSpeed;
-        value = 0;
         StartMove();
     }
 
